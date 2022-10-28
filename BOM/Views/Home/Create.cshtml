@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BOM.Models.Product>
+@{
+    ViewBag.Title = "新增物料內容";
+}
+
+<h2>新增物料內容</h2>
+<form method="post" action="@Url.Action("Create")">
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <label for="ProducId" class="control-label col-md-2">產品編號</label>
+            <div class="col-md-10">
+                <select id="ProductId" name="ProductId" class="form-control">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.ProductId">@item.ProductId</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MaterialId" class="control-label col-md-2">物料編號</label>
+            <div class="col-md-10">
+                <input type="text" id="MaterialId" name="MaterialId" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MaterialId" class="control-label col-md-2">物料名稱</label>
+            <div class="col-md-10">
+                <input type="text" id="MaterialName" name="MaterialName" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MaterialId" class="control-label col-md-2">物料型號</label>
+            <div class="col-md-10">
+                <input type="text" id="MaterialModel" name="MaterialModel" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MaterialId" class="control-label col-md-2">物料說明</label>
+            <div class="col-md-10">
+                <input type="text" id="MaterialDescription" name="MaterialDescription" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-info">送出</button>
+</form>
