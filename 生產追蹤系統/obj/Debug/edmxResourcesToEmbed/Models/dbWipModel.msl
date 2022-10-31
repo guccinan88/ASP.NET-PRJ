@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WIPModelStoreContainer" CdmEntityContainer="WIPEntities">
+    <EntitySetMapping Name="WIP">
+      <EntityTypeMapping TypeName="WIPModel.WIP">
+        <MappingFragment StoreEntitySet="WIP">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="WorkStation" ColumnName="WorkStation" />
+          <ScalarProperty Name="Machine" ColumnName="Machine" />
+          <ScalarProperty Name="Total_Count" ColumnName="Total_Count" />
+          <ScalarProperty Name="Last_Count" ColumnName="Last_Count" />
+          <ScalarProperty Name="Produced_Count" ColumnName="Produced_Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

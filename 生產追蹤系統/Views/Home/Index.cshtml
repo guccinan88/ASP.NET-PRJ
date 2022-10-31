@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "WIP-生產追蹤";
+}
+
+
+<h2>WIP-生產追蹤</h2>
+<table class="table">
+    <tr>
+        <th>生產編號</th>
+        <th>在製品型號</th>
+        <th>產線號碼</th>
+        <th>生產機台</th>
+        <th>工單數量</th>
+        <th>未完工數量</th>
+        <th>已完工數量</th>
+        <th>
+    </tr>
+    <tbody id="data_content">
+    </tbody>
+</table>
+<hr>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        WIP管理
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="Id">生產編號</label>
+            <input type="text" class="form-control" id="Id" />
+        </div>
+        <div class="form-group">
+            <label for="Model">在製品型號</label>
+            <input type="text" class="form-control" id="Model" />
+        </div>
+        <div class="form-group">
+            <label for="WorkStation">產線號碼</label>
+            <input type="text" class="form-control" id="WorkStation" />
+        </div>
+        <div class="form-group">
+            <label for="Machine">生產機台</label>
+            <input type="text" class="form-control" id="Machine" />
+        </div>
+        <div class="form-group">
+            <label for="Total_Count">工單數量</label>
+            <input type="text" class="form-control" id="Total_Count" />
+        </div>
+        <div class="form-group">
+            <label for="Produced_Count">已完工數量</label>
+            <input type="text" class="form-control" id="Produced_Count" />
+        </div>
+        <button class="btn btn-primary" id="btnCreate">新增</button>
+        <button class="btn btn-info" id="btnEdit">修改</button>
+        <button class="btn btn-danger" id="btnDelete">刪除</button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var apiUrl = "https://localhost:44316/api/wip";
+        function ajaxGet() {
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: async function (data) {
+                    data.forEach((item, index) => {
+                        $('#data_content').append(
+                            `<tr><td>${item.Id}</td>` +
+                            `<td>${item.Model}</td>` +
+                            `<td>${item.WorkStation}</td>` +
+                            `<td>${item.Machine}</td>` +
+                            `<td>${item.Total_Count}</td>` +
+                            `<td>${item.Total_Count - item.Produced_Count}</td>` +
+                            `<td>${item.Produced_Count}</td>` +
+                            `<td><button class="btn btn-info" id="btnSelect${index}")">選取</button></td></tr>`
+                        );
+                        $('#btnSelect' + index).on('click', { id: item.Id }, SearchGet);
+                    })
+                }
+            })
+        }
+
+        var SearchGet = function (event) {
+            var id = event.data.id;
+            $.ajax({
+                url: apiUrl + "?id=" + encodeURI(id),
+                type: 'GET',
+                success: function (data) {
+                    $("#Id").val(data.Id).attr("readonly", true);
+                    $("#Model").val(data.Model);
+                    $("#WorkStation").val(data.WorkStation);
+                    $("#Machine").val(data.Machine);
+                    $("#Total_Count").val(data.Total_Count);
+                    $("#Produced_Count").val(data.Produced_Count);
+                }
+            })
+        }
+
+        function Create() {
+            var id = $("#Id").val();
+            var model = $("#Model").val();
+            var work_station = $("#WorkStation").val();
+            var machine = $("#Machine").val();
+            var total_count = $("#Total_Count").val();
+            var produced_count = $("#Produced_Count").val();
+            var data = `?Id=${id}&Model=${model}&WorkStation=${work_station}&Machine=${machine}&Total_Count=${total_count}&Produced_Count=${produced_count}`;
+            $.ajax({
+                url: apiUrl + encodeURI(data),
+                type: 'POST',
+                success: function (result) {
+                    if (result === true) {
+                        alert('新增成功');
+                        ajaxGet();
+                    } else {
+                        alert('新增失敗');
+                    }
+                }
+
+            })
+        }
+        var Edit = function () {
+            var id = $("#Id").val();
+            var model = $("#Model").val();
+            var work_station = $("#WorkStation").val();
+            var machine = $("#Machine").val();
+            var total_count = $("#Total_Count").val();
+            var produced_count = $("#Produced_Count").val();
+            var data = `?Id=${id}&Model=${model}&WorkStation=${work_station}&Machine=${machine}&Total_Count=${total_count}&Produced_Count=${produced_count}`;
+            $.ajax({
+                url: apiUrl + encodeURI(data),
+                type: 'PUT',
+                success: function (result) {
+                    if (result === true) {
+                        alert('修改成功');
+                        $('#data_content').empty();
+                        ajaxGet();
+                        ClearForm();
+                    } else {
+                        alert('修改失敗');
+                    }
+                }
+
+            })
+
+        }
+        var Delete = function () {
+            var id = $('#Id').val();
+            $.ajax({
+                url: apiUrl + "?id=" + encodeURI(id),
+                type: 'DELETE',
+                success: function (result) {
+                    if (result === true) {
+                        alert('刪除成功');
+                        $('#data_content').empty();
+                        ajaxGet();
+                        ClearForm();
+                    } else {
+                        alert('刪除失敗');
+                    }
+                }
+            })
+        }
+        function ClearForm() {
+            $("#Id").val("")
+            $("#Model").val("");
+            $("#WorkStation").val("");
+            $("#Machine").val("");
+            $("#Total_Count").val("");
+            $("#Produced_Count").val("");
+        }
+        ajaxGet();
+        $('#btnCreate').on('click', Create);
+        $('#btnEdit').on('click', Edit);
+        $('#btnDelete').on('click', Delete);
+    })
+</script>
+
+
