@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Delivery_Order>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<table class="table table-striped table-bordered table-hover">
+    <caption>出貨單列表</caption>
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m=>m.Customer_Name)</th>
+            <th>@Html.DisplayNameFor(m=>m.ProductName)</th>
+            <th>@Html.DisplayNameFor(m=>m.ProductCount)</th>
+            <th>@Html.DisplayNameFor(m=>m.Date)</th>
+            <th>資料操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var m in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(x=>m.Customer_Name)</td>
+                <td>@Html.DisplayFor(x=>m.ProductName)</td>
+                <td>@Html.DisplayFor(x=>m.ProductCount)</td>
+                <td>@Html.DisplayFor(x=>m.Date)</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@m.Id" class="btn btn-info">明細</a>
+                    <a asp-action="Edit" asp-route-id="@m.Id" class="btn btn-dark">編輯</a>
+                    <a asp-action="Delete" asp-route-id="@m.Id" class="btn btn-danger">刪除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create" class="btn btn-primary">建立出貨單</a>

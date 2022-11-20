@@ -1,0 +1,28 @@
+﻿@model Delivery_Order
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="alert alert-light">出貨單明細</h1>
+
+<hr />
+<h4 class="alert alert-info">客戶資料</h4>
+<dl class="row">
+    <dt class="col-sm-2">客戶名稱</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(m=>m.Customer_Name)</dd>
+    <dt class="col-sm-2">連絡電話</dt>
+    <dd class="col-sm-9">@ViewBag.Phone</dd>
+    <dt class="col-sm-2">E-Mail</dt>
+    <dd class="col-sm-9">@ViewBag.Email</dd>
+    <dt class="col-sm-2">送貨地址</dt>
+    <dd class="col-sm-9">@ViewBag.Address</dd>
+</dl>
+<h4 class="alert alert-primary">出貨明細</h4>
+<dl class="row">
+    <dt class="col-sm-2">產品名稱</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(m=>m.ProductName)</dd>
+    <dt class="col-sm-2">出貨數量</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(m=>m.ProductCount)</dd>
+    <dt class="col-sm-2">出貨日期</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(m=>m.Date)</dd>
+</dl>
