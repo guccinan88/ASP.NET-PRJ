@@ -1,0 +1,59 @@
+﻿
+@{
+	var jsonName = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.jsonQueryName);
+	var jsonPrice = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.jsonQueryPrice);
+}
+
+<canvas id="chart"></canvas>
+
+<script>
+	window.onload=function(){
+		var jsName=@Html.Raw(jsonName);
+	var jsPrice=@Html.Raw(jsonPrice);
+	console.log(jsPrice);
+	var ctx=document.getElementById('chart');
+
+	var chart=new Chart(ctx,{
+		type:'bar',
+		data:{
+			labels:jsName,
+			datasets:[{
+				label:'各縣市米價',
+				data:jsPrice,
+				backgroundColor:[
+					'#921AFF',
+					'#D9006C',
+					'#5B5B5B',
+					'#006030',
+					'#0000E3',
+					'#921AFF',
+					'#D9006C',
+					'#5B5B5B',
+					'#006030',
+					'#0000E3',
+					'#921AFF',
+					'#D9006C',
+					'#5B5B5B',
+					'#006030',
+					'#0000E3',
+					'#921AFF',
+					'#D9006C',
+					'#5B5B5B',
+					'#006030',
+					'#0000E3',
+				],
+			}]
+		},
+		options:{
+			scales:{
+				yAxes:[{
+					ticks:{
+						beginAtZero:true
+					}
+				}]
+			},
+		},
+
+	})
+	}
+</script>

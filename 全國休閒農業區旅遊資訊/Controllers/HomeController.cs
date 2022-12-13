@@ -14,7 +14,7 @@ namespace WebApplication12.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            string path = $"{Server.MapPath("JSON").Replace("Home\\", "")}\\ODwsvAttractions.json";
+            string path = $"{Server.MapPath("JSON")}\\ODwsvAttractions.json";
             StreamReader streamReader=new StreamReader(path);
             FarmAttractions[] farmAttractions = JsonConvert.DeserializeObject<FarmAttractions[]>(streamReader.ReadToEnd());
             HashSet<string> list=new HashSet<string>();

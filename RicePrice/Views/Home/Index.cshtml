@@ -1,0 +1,18 @@
+﻿
+<form action="~/Home/Index" method="post">
+	<input name="qDate" type="date" />
+	<input type="submit" />
+</form>
+
+@{
+	if (ViewBag.Status != null)
+	{
+		@await Html.PartialAsync("ChartJsShow");
+	}
+	if (ViewBag.Error != null)
+	{
+		<p>@ViewBag.Error</p>
+	}
+
+}
+
